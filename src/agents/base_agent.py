@@ -27,17 +27,15 @@ class Agent:
         '''
         pass
 
-    @property
     def active(self, enable=None):
         if not enable is None:
             self.enable = enable
         return self.enable
 
-    @property
     def tag(self, tag=None):
         if not tag is None:
             self.agent_tag = tag
-        return self.tag
+        return self.agent_tag
 
     def lock(self, agent):
         '''
@@ -50,3 +48,6 @@ class Agent:
         Define what happens when an extrernal agent is trying to release the current one
         '''
         pass
+
+    def __repr__(self):
+        return str(self.agent_tag.name)
