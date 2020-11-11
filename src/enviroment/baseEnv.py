@@ -1,3 +1,5 @@
+from .error import EnvError
+
 class Enviroment:
     """
     Enviroment for babys and the babysitter
@@ -24,6 +26,20 @@ class Enviroment:
 
     def set_agents(agents):
         self.agents = [agent(env=self) for agent in agents]
+
+    def set(x, y, agent):
+        '''
+        Set agent position to (x, y)
+        '''
+        pass
+
+    def get(x, y):
+        '''
+        Get the env pos (x, y)
+        '''
+        if not self.valid_pos(x, y):
+            raise EnvError('Invalid position')
+        return self.env[x][y]
 
     def vaid_pos(x, y):
         n, m = self.size
