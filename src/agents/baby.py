@@ -2,7 +2,7 @@ import random
 from .error import AgentError
 from .base_agent import Agent
 from ..enviroment import EnvTags, EnvError
-from .util import random_dir, select, ALL_DIR
+from .utils import random_dir, select, ALL_DIR
 
 class Baby(Agent):
     '''
