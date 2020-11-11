@@ -41,11 +41,11 @@ class Enviroment:
             raise EnvError('Invalid position')
         return self.env[x][y]
 
-    def vaid_pos(self, x, y):
+    def valid_pos(self, x, y):
         n, m = self.size
         return (0 <= x < n) and (0 <= y < m)
 
-    def variate(self):
+    def variate(self, **kwargs):
         '''
         Method for define how an env varite
         '''

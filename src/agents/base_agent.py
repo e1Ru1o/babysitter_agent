@@ -10,20 +10,20 @@ class Agent:
         self.active(enable)
         self.tag(tag)
 
-    def set_position(x, y):
+    def set_position(self, x, y):
         '''
         Set the agent env position
         '''
         self.env.set(x, y, self)
         return self
 
-    def push(xdir, ydir, agent):
+    def push(self, xdir, ydir, agent):
         '''
         Define how an agent acts when is being pushed byt otrher agent
         '''  
         return False
 
-    def action():
+    def action(self):
         '''
         Defines how an agent acts
         '''
@@ -52,4 +52,6 @@ class Agent:
         raise AgentError("Agent can't be released")
 
     def __repr__(self):
-        return str(self.agent_tag.name)
+        name = self.agent_tag.name
+        sz = 11 - len(name)
+        return " %s%s " % (name, ' ' * sz)
