@@ -24,9 +24,6 @@ class Enviroment:
         if self.t and self.time % self.t == 0:
             self.variate() 
 
-    def set_agents(self, agents):
-        self.agents = [agent(env=self) for agent in agents]
-
     def set(self, x, y, agent):
         '''
         Set agent position to (x, y)
