@@ -2,6 +2,9 @@ from .base_agent import Agent
 from ..enviroment import EnvError, EnvTags
 
 class Toy(Agent):
+    '''
+    Toy agent represents an enviroment obstacle
+    '''
     def push(xdir, ydir, agent):
         try:
             assert agent.tag in [EnvTags.BABY, EnvTags.TOY] 

@@ -1,3 +1,5 @@
+from .error import AgentError
+
 class Agent:
     '''
     Class for enviroment entities
@@ -19,7 +21,7 @@ class Agent:
         '''
         Define how an agent acts when is being pushed byt otrher agent
         '''  
-        pass
+        return False
 
     def action():
         '''
@@ -41,13 +43,13 @@ class Agent:
         '''
         Define what happens when an extrernal agent is trying to lock the current one
         '''
-        pass
+        raise AgentError("Agent can't be locked")
 
     def release(self, agent):
         '''
         Define what happens when an extrernal agent is trying to release the current one
         '''
-        pass
+        raise AgentError("Agent can't be released")
 
     def __repr__(self):
         return str(self.agent_tag.name)
