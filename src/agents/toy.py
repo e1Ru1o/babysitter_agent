@@ -7,7 +7,7 @@ class Toy(Agent):
     '''
     def push(xdir, ydir, agent):
         try:
-            assert agent.tag in [EnvTags.BABY, EnvTags.TOY] 
+            assert agent.tag() in [EnvTags.BABY, EnvTags.TOY] 
             x, y = self.position
             x, y = x + xdir, y + ydir
             assert self.env.get(x, y).push(xdir, ydir, self):
