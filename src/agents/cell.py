@@ -4,6 +4,6 @@ class Cell(Agent):
     '''
     Define an enviroment empty cell
     '''
-    def push(xdir, ydir):
+    def push(*args):
         return True
     

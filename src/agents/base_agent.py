@@ -15,9 +15,9 @@ class Agent:
         self.env.set(x, y, self)
         return self
 
-    def push(xdir, ydir):
+    def push(xdir, ydir, agent):
         '''
-        Define how an agent acts when is being pushed
+        Define how an agent acts when is being pushed byt otrher agent
         '''  
         pass
 
