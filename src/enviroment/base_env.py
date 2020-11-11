@@ -12,7 +12,7 @@ class Enviroment:
         self.end    = t * cicles
         self.env    = [[None] * m for _ in range(n)] 
         
-    def run(*args, **kwargs):
+    def run(self):
         '''
         Execute the enviroment pipeline
         '''
@@ -24,16 +24,16 @@ class Enviroment:
         if self.t and self.time % self.t == 0:
             self.variate() 
 
-    def set_agents(agents):
+    def set_agents(self, agents):
         self.agents = [agent(env=self) for agent in agents]
 
-    def set(x, y, agent):
+    def set(self, x, y, agent):
         '''
         Set agent position to (x, y)
         '''
         pass
 
-    def get(x, y):
+    def get(self, x, y):
         '''
         Get the env pos (x, y)
         '''
@@ -41,18 +41,21 @@ class Enviroment:
             raise EnvError('Invalid position')
         return self.env[x][y]
 
-    def vaid_pos(x, y):
+    def vaid_pos(self, x, y):
         n, m = self.size
         return (0 <= x < n) and (0 <= y < m)
 
-    def variate(*args, **kwargs):
+    def variate(self):
         '''
         Method for define how an env varite
         '''
         pass
 
-    def stop():
+    def stop(self):
         '''
         Update the enviroment status 
         '''
         pass
+
+    def __repr__(self):
+        return '\n'.join(str(l) for l in self.env)
