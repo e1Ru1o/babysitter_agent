@@ -8,6 +8,7 @@ class Enviroment:
         self.t      = t
         self.time   = 0
         self.agents = []
+        self.data   = {}
         self.size   = (n, m)
         self.end    = t * cicles
         self.env    = [[None] * m for _ in range(n)] 
@@ -22,7 +23,7 @@ class Enviroment:
         if self.stop():
             return self.status
         if self.t and self.time % self.t == 0:
-            self.variate() 
+            self.variate(**self.data) 
 
     def set(self, x, y, agent):
         '''
