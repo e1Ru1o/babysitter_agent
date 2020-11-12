@@ -9,6 +9,7 @@ class Enviroment:
         self.time   = 0
         self.agents = []
         self.data   = {}
+        self.status = None
         self.size   = (n, m)
         self.end    = t * cicles
         self.env    = [[None] * m for _ in range(n)] 

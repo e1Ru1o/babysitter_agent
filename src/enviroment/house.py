@@ -1,7 +1,7 @@
 import random
-from .utils import EnvTags
 from .error import EnvError
 from .base_env import Enviroment
+from .utils import EnvTags, EnvStatus
 from ..agents import Baby, Robot, Cell, Toy, Roller, DIR
 
 class House(Enviroment):
@@ -21,6 +21,10 @@ class House(Enviroment):
 
     def build_data(self, **kwargs):
         self.data = kwargs
+
+    def run():
+        self.status = EnvStatus.RUNNING
+        super().run()
 
     def variate(self, rollers=None, toys=None, babies=None, dirty=None, bot=None):
         def generate(c, tag, sz, current):
@@ -65,7 +69,17 @@ class House(Enviroment):
              Cell(env=self, tag=EnvTags.EMPTY).set_position(*agent.position)
         agent.position = (x, y)
             
+    def stop(self):
+        n, m = self.size
+        cells = n * m
+        rollers = [1 for r in self.data['rollers'] if r.tag() == EnvTags.FULL_ROLLER]
+        if (not self.dirty) and (len(rollers) == len(self.data['rollers'])):
+            self.status = EnvStatus.CLEAN
+        elif self.time > self.end:
+            self.status = EnvStatus.TLE
+        elif (self.dirty * 100) / cells >= 60:
+            self.status = EnvStatus.FIRED
+        return self.status != EnvStatus.RUNNING 
+            
 
-        
-        
 
