@@ -28,8 +28,12 @@ class Baby(Agent):
         except AssertionError as e:
             raise AgentError(str(e))
         self.carrier = None
-        self.active(False)
+        self.active(True)
         self.set_position(*agent.position)
+
+    def set_position(self, x, y):
+        if self.active():
+            super().set_position(x, y)
 
     def action(self):
         if not self.active():
