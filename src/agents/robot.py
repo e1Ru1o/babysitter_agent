@@ -8,7 +8,7 @@ class Robot(Agent):
         super().__init__(**kwargs)
         self.carry = None
 
-    def action():
+    def action(self):
         # //TODO: Implement
         pass
 

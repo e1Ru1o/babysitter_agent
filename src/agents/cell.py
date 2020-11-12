@@ -5,6 +5,6 @@ class Cell(Agent):
     '''
     Define an enviroment empty/dirty cell
     '''
-    def push(*args):
+    def push(self, *args):
         return self.tag() == EnvTags.EMPTY
     

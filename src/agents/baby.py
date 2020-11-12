@@ -31,16 +31,16 @@ class Baby(Agent):
         self.active(False)
         self.set_position(*agent.position)
 
-    def action():
+    def action(self):
         if not self.active():
             return
         xdir, ydir = random_dir()
         x, y = self.position
         old_pos = self.position
-        x, y = xprev + xdir, yprev + ydir
+        x, y = x + xdir, y + ydir
         try:
             assert self.env.get(x, y).push(xdir, ydir, self)
-            self.set_posotion(x, y)
+            self.set_position(x, y)
         except AssertionError: pass
         except EnvError: pass
         x, y = old_pos
@@ -52,7 +52,7 @@ class Baby(Agent):
         empty = select(neighbors, EnvTags.EMPTY)
         baby_cant = len(select(neighbors, EnvTags.BABY))
         dirty = [1, 3, 6][(baby_cant >= 2) + (baby_cant >= 3)]
-        dirty = min(dirty, len(empty))
+        dirty = random.randint(0, min(dirty, len(empty)))
         for cell in random.sample(empty, dirty):
             cell.tag(EnvTags.DIRTY)
         self.env.dirty += dirty

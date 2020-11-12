@@ -5,7 +5,7 @@ class Toy(Agent):
     '''
     Toy agent represents an enviroment obstacle
     '''
-    def push(xdir, ydir, agent):
+    def push(self, xdir, ydir, agent):
         try:
             assert agent.tag() in [EnvTags.BABY, EnvTags.TOY] 
             x, y = self.position
