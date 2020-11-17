@@ -12,8 +12,15 @@ class Enviroment:
         self.status = None
         self.size   = (n, m)
         self.end    = t * cicles
-        self.env    = [[None] * m for _ in range(n)] 
+        self.clear()
         
+    def clear(self):
+        '''
+        Create an empty world
+        '''
+        n, m = self.size
+        self.env = [[[] for _ in range(m)] for _ in range(n)] 
+
     def run(self):
         '''
         Execute the enviroment pipeline
@@ -29,6 +36,12 @@ class Enviroment:
     def set(self, x, y, agent):
         '''
         Set agent position to (x, y)
+        '''
+        pass
+
+    def unset(self, agent):
+        '''
+        Remove the agent
         '''
         pass
 
@@ -57,4 +70,5 @@ class Enviroment:
         pass
 
     def __repr__(self):
-        return '\n'.join(str(l) for l in self.env)
+        n, m = self.size
+        return '\n'.join((''.join(str(self.get(i, j)) for j in range(m)) for i in range(n)))
