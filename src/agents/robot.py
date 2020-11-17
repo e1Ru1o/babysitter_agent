@@ -1,5 +1,5 @@
+from .utils import bfs
 from .base_agent import Agent
-from .utils import bfs, get_path
 from ..enviroment import EnvTags as Tags
 
 valid = [Tags.EMPTY, Tags.DIRTY, Tags.ROLLER, Tags.BABY]
