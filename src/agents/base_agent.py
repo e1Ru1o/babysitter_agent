@@ -1,10 +1,13 @@
 from .error import AgentError
+from ..logging import Logger
 
 class Agent:
     '''
     Class for enviroment entities
     '''
-    def __init__(self, env=None, tag=None, enable=True):
+    def __init__(self, env=None, tag=None, enable=True, logger='Agent'):
+        self.logger = Logger('App').getChild(logger)
+        self.logger.debug(f'Creating a new {self.__class__.__name__} agent with Tag:{tag.name if tag else "undefined"}', 'init')
         self.env        = env
         self.position   = None
         self.active(enable)
@@ -54,4 +57,4 @@ class Agent:
     def __repr__(self):
         name = self.agent_tag.name
         sz = 11 - len(name)
-        return " %s%s " % (name, ' ' * sz)
+        return "%s%s " % (name, ' ' * sz)

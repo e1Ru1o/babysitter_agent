@@ -1,10 +1,13 @@
 from .error import EnvError
+from ..logging import Logger
 
 class Enviroment:
     """
     Enviroment for babys and the babysitter
     """
-    def __init__(self, n, m, t, cicles=100):
+    def __init__(self, n, m, t, cicles=100, logger='Env'):
+        self.logger = Logger('App').getChild(logger)
+        self.logger.debug(f'Creating a new {self.__class__.__name__} enviroment', 'init')
         self.t      = t
         self.time   = 0
         self.agents = []
@@ -18,6 +21,7 @@ class Enviroment:
         '''
         Create an empty world
         '''
+        self.logger.debug('Clearing the env', 'clear')
         n, m = self.size
         self.env = [[[] for _ in range(m)] for _ in range(n)] 
 
@@ -25,13 +29,17 @@ class Enviroment:
         '''
         Execute the enviroment pipeline
         '''
-        for agent in self.agents:
-            agent.action()
-        self.time += 1
-        if self.stop():
-            return self.status
-        if self.t and self.time % self.t == 0:
-            self.variate(**self.data) 
+        self.logger.info('Running the env', 'run')
+        while True:
+            for agent in self.agents:
+                agent.action()
+            self.time += 1
+            if self.stop():
+                self.logger.info('Final state reached', 'run')
+                return self.status
+            if self.t and self.time % self.t == 0:
+                self.logger.info('Env aleatory change occur', 'run')
+                self.variate(**self.data) 
 
     def set(self, x, y, agent):
         '''
@@ -50,7 +58,7 @@ class Enviroment:
         Get the env pos (x, y)
         '''
         if not self.valid_pos(x, y):
-            raise EnvError('Invalid position')
+            raise EnvError(f'Invalid position {(x, y)}')
         return self.env[x][y]
 
     def valid_pos(self, x, y):

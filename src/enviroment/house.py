@@ -3,12 +3,14 @@ from .error import EnvError
 from .base_env import Enviroment
 from ..agents import Baby, Robot, Cell, Toy, Roller, DIR
 from .utils import EnvTags, EnvStatus, generate, fill_agents, agent_maker as maker
+from ..logging import Logger
 
 class House(Enviroment):
-    def __init__(self, n, m, t, babies, toys, dirty):
-        super().__init__(n, m, t)
+    def __init__(self, n, m, t, babies, toys, dirty, cicles):
+        super().__init__(n, m, t, cicles, 'House')
         self.babies  = babies
         
+        self.logger.debug("Checking if the env is feasible", 'init')
         cells       = n * m
         self.dirty  = int((dirty * cells) / 100)
         self.toys   = int((toys * cells)  / 100)
@@ -22,9 +24,10 @@ class House(Enviroment):
     def build_data(self, **kwargs):
         self.data = kwargs
 
-    def run():
+    def run(self):
+        self.logger.debug('Setting the status to RUNNING', 'run')
         self.status = EnvStatus.RUNNING
-        super().run()
+        return super().run()
 
     def variate(self, rollers=None, toys=None, babies=None, dirty=None, bot=None):
         # New empty table
@@ -76,6 +79,7 @@ class House(Enviroment):
 
     def set(self, x, y, agent):
         self.unset(agent)
+        self.logger.debug(f'Setting {str(agent).strip()} agent position to {(x, y)}', 'set')
         cell = self._get(x, y)
         cell.append(agent)
         cell.sort(key=lambda x: x.tag().value)
@@ -83,6 +87,7 @@ class House(Enviroment):
 
     def unset(self, agent):
         if agent.position:
+            self.logger.debug(f'Unsetting {str(agent).strip()} agent at position {agent.position}', 'unset')
             self._get(*agent.position).remove(agent)
             agent.position = None
 
@@ -95,12 +100,15 @@ class House(Enviroment):
     def stop(self):
         n, m = self.size
         cells = n * m
-        rollers = [1 for r in self.data['rollers'] if r.tag() == EnvTags.FULL_ROLLER]
-        if (not self.dirty) and (len(rollers) == len(self.data['rollers'])):
+        rollers = sum(r.tag() == EnvTags.FULL_ROLLER for r in self.data['rollers'])
+        if (not self.dirty) and (rollers == self.babies):
+            self.logger.debug('CLEAN status reached', 'stop')
             self.status = EnvStatus.CLEAN
         elif self.time > self.end:
+            self.logger.debug('Time Limit Exceded status reached', 'stop')
             self.status = EnvStatus.TLE
         elif (self.dirty * 100) / cells >= 60:
+            self.logger.debug('Bot Fired status reached', 'stop')
             self.status = EnvStatus.FIRED
         return self.status != EnvStatus.RUNNING 
             
