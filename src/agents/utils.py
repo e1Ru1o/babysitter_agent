@@ -25,7 +25,7 @@ def bfs(start, table, valid_tags):
             try:
                 assert nx >= 0 and ny >= 0
                 assert not visited[nx][ny]
-                tag = table[nx][ny].tag()
+                tag = table[nx][ny][-1].tag()
                 assert tag in valid_tags
                 d = distance[nx][ny] = distance[x][y] + 1
                 data[tag].append((nx, ny))
@@ -37,13 +37,13 @@ def bfs(start, table, valid_tags):
         idx += 1
     return data, distance, step
     
-def get_path(end, steps):
+def get_path(end, step):
     l = []
     x, y = end
-    while steps[x][y]:
+    while step[x][y]:
         l.append(step[x][y])
         xdir, ydir = step[x][y]
         x -= xdir
-        y -= xdir
+        y -= ydir
     l.reverse()
     return l
