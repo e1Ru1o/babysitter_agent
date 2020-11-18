@@ -1,7 +1,7 @@
 import random
 from .error import EnvError
 from .base_env import Enviroment
-from ..agents import Baby, Robot, Cell, Toy, Roller, DIR
+from ..agents import Baby, Reactive as Robot, Cell, Toy, Roller, DIR
 from .utils import EnvTags, EnvStatus, generate, fill_agents, agent_maker as maker
 from ..logging import Logger
 
@@ -51,6 +51,7 @@ class House(Enviroment):
             if self.valid_pos(*first) and self.valid_pos(x, y):
                 a, b = first
                 for roller in rollers:
+                    roller.position = None
                     roller.set_position(a, b)
                     positions.remove((a, b))
                     a += xdir
@@ -63,10 +64,12 @@ class House(Enviroment):
         dirty = generate(maker(Cell, self, EnvTags.DIRTY), self.dirty, dirty)
         bot = generate(maker(Robot, self, EnvTags.BOT), 1, bot)
         callback = lambda: Cell(env=self, tag=EnvTags.EMPTY)
-        all_agents = fill_agents([*toys, *babies, *dirty, *bot], callback)
+        active_babies = [b for b in babies if b.active()]
+        all_agents = fill_agents([*toys, *active_babies, *dirty, *bot], callback)
         
         # Assign positions
         for pos, agent in zip(positions, all_agents):
+            agent.position = None
             agent.set_position(*pos)
 
         # Update the env
@@ -74,8 +77,9 @@ class House(Enviroment):
         self.agents = [*bot, *babies]
 
         # Add empty cells in the agents positions
-        for x in self.agents:
-            callback().set_position(*x.position)
+        for x in [*self.agents, *toys]:
+            if x.position:
+                callback().set_position(*x.position)
 
     def set(self, x, y, agent):
         self.unset(agent)
@@ -94,8 +98,8 @@ class House(Enviroment):
     def _get(self, x, y):
         return super().get(x, y)
             
-    def get(self, x, y):
-        return super().get(x, y)[-1]
+    def get(self, x, y, idx=-1):
+        return super().get(x, y)[idx]
 
     def stop(self):
         n, m = self.size

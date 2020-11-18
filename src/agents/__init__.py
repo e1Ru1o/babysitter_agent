@@ -3,6 +3,7 @@ from .cell import Cell
 from .baby import Baby
 from .robot import Robot
 from .roller import Roller
+from .reactive import Reactive
 from .error import AgentError
 
 from .utils import DIR, ALL_DIR
