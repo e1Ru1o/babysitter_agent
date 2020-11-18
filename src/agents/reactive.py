@@ -8,7 +8,7 @@ class Reactive(Robot):
         super().__init__(**kwargs)
         self.logger = Logger('App').getChild('Reactive')
 
-    def action(self, times=1):
+    def action(self):
         steps = 1 if self.carry is None else 2
         self.logger.debug(f'Bot action started, {steps} steps available', 'action')
         for _ in range(steps):
