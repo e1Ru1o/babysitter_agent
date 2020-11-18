@@ -12,17 +12,20 @@ def main(args):
     logger = Logger('App', args.log_file)
     level = get_level(args.level)
     try:
-        logger.setLevel(get_level(args.level))
+        logger.setLevel(level)
     except ValueError:
         logger.setLevel('INFO')
         logger.error(f'`{level}` is not a valid logging level, setting the level to INFO', 'main')
 
+    # Running the env
     data = defaultdict(lambda: 0)
     for _ in range(args.repetitions):
         env = House(args.rows, args.columns, args.time, args.babies, args.toys, args.dirty, args.cicles)
         status = env.run()
         data['DIRTY-MEAN'] += env.dirty
         data[status.name]  += 1
+
+    # Computing the result
     logger.debug(f"Acumulated dirty amount is {data['DIRTY-MEAN']}", 'main')
     data['DIRTY-MEAN'] /= args.repetitions
     print('\n'.join(f'{key}: {value}' for key, value in data.items()))
@@ -44,4 +47,3 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     main(args)
-    
