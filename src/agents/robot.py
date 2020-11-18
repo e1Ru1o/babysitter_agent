@@ -2,7 +2,8 @@ from .utils import bfs
 from .base_agent import Agent
 from ..enviroment import EnvTags as Tags
 
-valid = [Tags.EMPTY, Tags.DIRTY, Tags.ROLLER, Tags.BABY]
+valid = [Tags.EMPTY, Tags.DIRTY, Tags.ROLLER]
+all_valid = [*valid, Tags.BABY]
 
 class Robot(Agent):
     '''
@@ -13,10 +14,10 @@ class Robot(Agent):
         self.carry = None
 
     def see(self):
-        return self.env.data
+        return self.env.env
 
     def perceive(self):
-        return bfs(self.position, self.see(), valid)
+        return bfs(self.position, self.see(), [valid, all_valid][self.carry is None])
         
 
     
