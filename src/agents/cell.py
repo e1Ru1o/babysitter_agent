@@ -1,5 +1,5 @@
 from .base_agent import Agent
-from ..enviroment import EnvTags
+from ..common import EnvTags
 
 class Cell(Agent):
     '''

@@ -1,6 +1,5 @@
-from .error import AgentError
 from .base_agent import Agent
-from ..enviroment import EnvTags
+from ..common import AgentError, EnvTags
 
 class Roller(Agent):
     def lock(self, agent):

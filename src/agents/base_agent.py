@@ -1,4 +1,4 @@
-from .error import AgentError
+from ..common import AgentError
 from ..logging import Logger
 
 class Agent:

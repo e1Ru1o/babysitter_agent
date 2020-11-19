@@ -1,14 +1,15 @@
 import random
-from .error import EnvError
-from .base_env import Enviroment
-from ..agents import Baby, Reactive as Robot, Cell, Toy, Roller, DIR
-from .utils import EnvTags, EnvStatus, generate, fill_agents, agent_maker as maker
 from ..logging import Logger
+from .base_env import Enviroment
+from ..common import EnvError, EnvTags, DIR
+from ..agents import Baby, Cell, Toy, Roller
+from .utils import EnvStatus, generate, fill_agents, agent_maker as maker
 
 class House(Enviroment):
-    def __init__(self, n, m, t, babies, toys, dirty, cicles):
+    def __init__(self, n, m, t, babies, toys, dirty, cicles, robot):
         super().__init__(n, m, t, cicles, 'House')
         self.babies  = babies
+        self.robot = robot
         
         self.logger.debug("Checking if the env is feasible", 'init')
         cells       = n * m
@@ -62,7 +63,7 @@ class House(Enviroment):
         toys = generate(maker(Toy, self, EnvTags.TOY), self.toys, toys)
         babies = generate(maker(Baby, self, EnvTags.BABY), self.babies, babies)
         dirty = generate(maker(Cell, self, EnvTags.DIRTY), self.dirty, dirty)
-        bot = generate(maker(Robot, self, EnvTags.BOT), 1, bot)
+        bot = generate(maker(self.robot, self, EnvTags.BOT), 1, bot)
         callback = lambda: Cell(env=self, tag=EnvTags.EMPTY)
         active_babies = [b for b in babies if b.active()]
         all_agents = fill_agents([*toys, *active_babies, *dirty, *bot], callback)

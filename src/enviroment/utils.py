@@ -1,8 +1,5 @@
 from enum import Enum
 
-class EnvTags(Enum):
-    EMPTY, DIRTY, TOY, ROLLER, FULL_ROLLER, BABY, BOT = range(7) 
-
 class EnvStatus(Enum):
     RUNNING, FIRED, CLEAN, TLE = range(4) 
 

@@ -1,6 +1,6 @@
 from .utils import bfs
 from .base_agent import Agent
-from ..enviroment import EnvTags as Tags
+from ..common import EnvTags as Tags
 
 valid = [Tags.EMPTY, Tags.DIRTY, Tags.ROLLER]
 all_valid = [*valid, Tags.BABY]

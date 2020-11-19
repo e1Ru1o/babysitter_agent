@@ -1,4 +1,4 @@
-from .error import EnvError
+from ..common import EnvError
 from ..logging import Logger
 
 class Enviroment:

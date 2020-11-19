@@ -1,7 +1,7 @@
 from .robot import Robot
 from .utils import get_path
-from ..enviroment import EnvTags as Tags
 from ..logging import Logger
+from ..common import EnvTags as Tags
 
 class Proactive(Robot):
     def __init__(self, **kwargs):

@@ -1,5 +1,5 @@
 from .base_agent import Agent
-from ..enviroment import EnvError, EnvTags
+from ..common import EnvError, EnvTags
 
 class Toy(Agent):
     '''

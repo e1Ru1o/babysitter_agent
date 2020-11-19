@@ -1,9 +1,8 @@
 import random
-from .error import AgentError
-from .base_agent import Agent
-from ..enviroment import EnvTags, EnvError
-from .utils import random_dir, select, ALL_DIR
+from .utils import select
 from ..logging import Logger
+from .base_agent import Agent
+from ..common import random_dir, ALL_DIR, EnvTags, EnvError, AgentError
 
 class Baby(Agent):
     '''
