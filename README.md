@@ -1,13 +1,13 @@
-# Babysitter Agent
+# Babysitter Agent 
 School project for learn about intelligent agents theory
 
-## Description
+## Description 📋
 The full project description is located in `doc/proyecto-agentes.pdf`.
 
-## Requierments
+## Requierments 🔧
 This project was developed using `Python >= 3.7.4` and has not any extra dependencies. Then if you need to install python check the oficial [site](https://www.python.org/downloads/)
 
-## Execution
+## Execution ▶️
 First of all there are three modes of execution. You can see the three of time listed typing:
 ```bash
 python main.py
@@ -59,7 +59,7 @@ And for any configuration saved on the `configurations/` folder:
 make load LABEL=<configuration-name>
 ```
 
-## Customization
+## Customization ⚙️
 You can add custom agents and enviroments by implementing `Agent` and `Enviroment` respectively. To see the content of this classes check the files `src/agent/base_agent.py` and `src/enviroment/base_env.py`.
 
 Once you have your implementation you need to register them in the appropiate module `__init__.py` file. Simply add your robots to the `robots` list in  `src/agent/__init__.py`, and add your enviroments to the `envs` list in  `src/enviroments/__init__.py`. When you are done, check that your implementations are correctly added typing:
