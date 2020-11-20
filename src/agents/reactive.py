@@ -22,7 +22,9 @@ class Reactive(Robot):
                 assert not self.do_baby(perception)
                 assert not self.do_dirty(perception)
             except AssertionError: pass
+            self.saved_pos = self.position
             if self.carry is None: break
+        self.time += 1
 
     def cur_pos_action(self):
         agent = self.env.get(*self.position, -2)

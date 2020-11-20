@@ -4,6 +4,7 @@ from ..common import EnvTags as Tags
 
 valid = [Tags.EMPTY, Tags.DIRTY, Tags.ROLLER]
 all_valid = [*valid, Tags.BABY]
+options = [valid, all_valid]
 
 class Robot(Agent):
     '''
@@ -11,13 +12,22 @@ class Robot(Agent):
     '''
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.carry = None
+        self.carry       = None
+        self.top         = float('inf')
+        self.saved_pos   = None
+        self.time        = 0
+        self.last_change = 0
 
     def see(self):
         return self.env.env
 
     def perceive(self):
-        return bfs(self.position, self.see(), [valid, all_valid][self.carry is None])
+        if self.saved_pos:
+            pos = self.saved_pos
+            if pos != self.position:
+                self.top = min(self.top, self.time - self.last_change)
+                self.last_change = self.time
+        return bfs(self.position, self.see(), options[self.carry is None], self.top)
         
 
     

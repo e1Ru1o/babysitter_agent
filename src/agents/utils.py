@@ -3,7 +3,7 @@ from ..common import DIR
 def select(agents, tag):
     return [x for x in agents if x.tag() == tag]
 
-def bfs(start, table, valid_tags):
+def bfs(start, table, valid_tags, top):
     q, idx = [start], 0
     step = [[None] * len(x) for x in table]
     visited = [[False] * len(x) for x in table]
@@ -14,6 +14,8 @@ def bfs(start, table, valid_tags):
     data = {tag:[] for tag in valid_tags}
     while idx < len(q):
         x, y = q[idx]
+        if distance[x][y] >= top:
+            break
         for xdir, ydir in DIR:
             nx, ny = x + xdir, y + ydir
             try:

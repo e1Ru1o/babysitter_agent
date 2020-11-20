@@ -25,7 +25,9 @@ class Proactive(Robot):
                     # New plan needed
                     assert self.build_new_plan()
             except AssertionError: pass
+            self.saved_pos = self.position
             if self.carry is None: break
+        self.time += 1
         
     def cur_pos_action(self):
         agent = self.env.get(*self.position, -2)
