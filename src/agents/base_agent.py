@@ -18,7 +18,6 @@ class Agent:
         Set the agent env position
         '''
         self.env.set(x, y, self)
-        return self
 
     def push(self, xdir, ydir, agent):
         '''

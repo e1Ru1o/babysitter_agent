@@ -1,4 +1,4 @@
-from src import House, Logger, get_robot, parse_arguments
+from src import Logger, get_env, get_robot, parse_arguments
 from collections import defaultdict
 
 def get_level(level):
@@ -19,8 +19,9 @@ def main(args):
 
     # Running the env
     data = defaultdict(lambda: 0)
+    env_class = get_env(args.env)
     for _ in range(args.repetitions):
-        env = House(args.rows, args.columns, args.time, args.babies, \
+        env = env_class(args.rows, args.columns, args.time, args.babies, \
             args.toys, args.dirty, args.cicles, get_robot(args.robot))
         status = env.run()
         data['DIRTY-MEAN'] += env.dirty

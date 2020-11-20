@@ -1,5 +1,5 @@
 from .logging import Logger
-from .enviroment import House
+from .agents import get_robot
+from .enviroment import get_env
 from .parser import parse_arguments
-from .agents import get_robot, robots
 from .common import EnvTags, AgentError, EnvError

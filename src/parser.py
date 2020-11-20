@@ -1,4 +1,5 @@
 from .agents import robots
+from .enviroment import envs
 
 def config(callback, args):
     from configparser import ConfigParser
@@ -14,6 +15,7 @@ def config(callback, args):
     args.dirty        = parser.getfloat('env', 'dirty')
 
     # optional args
+    args.env          = parser.get('env',    'name',        fallback='house')
     args.level        = parser.get('log',    'level',       fallback='notset')
     args.log_file     = parser.get('log',    'file',        fallback='')
     args.robot        = parser.get('robot',  'name',        fallback='reactive')
@@ -24,7 +26,9 @@ def config(callback, args):
 def info(callback, args):
     robots_list = '\n'.join(f'+ {bot.__name__}' for bot in robots)
     available_bots = f'Robots:\n{robots_list}\n'
-    print(available_bots)
+    envs_list = '\n'.join(f'+ {env.__name__}' for env in envs)
+    available_envs = f'Enviroments:\n{envs_list}\n'
+    print('\n'.join([available_bots, available_envs]))
 
 def parse_arguments(main):
     import argparse
@@ -43,7 +47,8 @@ def parse_arguments(main):
     cmd_parser.add_argument('-rep', '--repetitions', type=int,   default=30,         help='Number of times to run the env')
     cmd_parser.add_argument('-lvl', '--level',       type=str,   default='notset',   help='Number of cicles to run')
     cmd_parser.add_argument('-f',   '--log-file',    type=str,   default='',         help='File to write the logs')
-    cmd_parser.add_argument('-bot', '--robot',       type=str,   default='reactive', help='File to write the logs')
+    cmd_parser.add_argument('-bot', '--robot',       type=str,   default='reactive', help='Robot class name to use for the simulation')
+    cmd_parser.add_argument('-env', '--env',         type=str,   default='house',    help='Enviroment class name to use for the simulation')
     cmd_parser.set_defaults(command=lambda _, args: main(args))
 
     info_parser = subparsers.add_parser('info', help='Show available agents and enviroments')
