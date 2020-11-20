@@ -73,6 +73,13 @@ class House(Enviroment):
             agent.position = None
             agent.set_position(*pos)
 
+        # Check if the bot is setted correctly
+        try: 
+            bot[0].set_position(*bot[0].position)
+        except ValueError: 
+            bot[0].position = None
+            bot[0].set_position(*positions[-1])
+
         # Update the env
         self.build_data(rollers=rollers, toys=toys, babies=babies, dirty=dirty, bot=bot)  
         self.agents = [*bot, *babies]
