@@ -4,7 +4,7 @@ from .enviroment import envs
 def config(callback, args):
     from configparser import ConfigParser
 
-    parser = ConfigParser()
+    parser = ConfigParser(inline_comment_prefixes="#")
     parser.read(args.path)
     # required args
     args.rows         = parser.getint('env',   'rows')
@@ -45,8 +45,8 @@ def parse_arguments(main):
     cmd_parser.add_argument('-t',   '--time',        type=int,   required=True,      help='Enviroment life cicle duration')
     cmd_parser.add_argument('-c',   '--cicles',      type=int,   default=100,        help='Number of cicles to run')
     cmd_parser.add_argument('-rep', '--repetitions', type=int,   default=30,         help='Number of times to run the env')
-    cmd_parser.add_argument('-lvl', '--level',       type=str,   default='notset',   help='Number of cicles to run')
-    cmd_parser.add_argument('-f',   '--log-file',    type=str,   default='',         help='File to write the logs')
+    cmd_parser.add_argument('-lvl', '--level',       type=str,   default='notset',   help='Number or name representing the log level')
+    cmd_parser.add_argument('-f',   '--file',        type=str,   default='',         help='File to write the logs')
     cmd_parser.add_argument('-bot', '--robot',       type=str,   default='reactive', help='Robot class name to use for the simulation')
     cmd_parser.add_argument('-env', '--env',         type=str,   default='house',    help='Enviroment class name to use for the simulation')
     cmd_parser.set_defaults(command=lambda _, args: main(args))
