@@ -21,6 +21,9 @@ config: ## Run the app using the `config` mode and `config.ini` file
 load: ## Run the app using the `config` mode and saved configuration file
 	@python main.py config -p $(NEW_CONFIG)
 
+info: ## Run the app info mode
+	@python main.py info
+
 help: ## Show this help
 	@echo Makefile rules:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
