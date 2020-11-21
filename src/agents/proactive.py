@@ -1,7 +1,7 @@
 from .robot import Robot
 from .utils import get_path
 from ..logging import Logger
-from ..common import EnvTags as Tags
+from ..common import EnvTags as Tags, DIR
 
 class Proactive(Robot):
     def __init__(self, **kwargs):
@@ -46,7 +46,8 @@ class Proactive(Robot):
     def do_planned_action(self):
         pos, tag = self.plan.pop(0)
         agent = self.env.get(*pos)
-        if agent.tag() != tag:
+        adyacent = [(pos[0] + x, pos[1] + y) for x, y in DIR[1:]]
+        if (agent.tag() != tag) or (not self.position in adyacent):
             self.logger.info('Agent planification failure', 'action')
             return False
         self.set_position(*pos)
