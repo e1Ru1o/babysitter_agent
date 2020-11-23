@@ -30,7 +30,9 @@ def main(args):
     # Computing the result
     logger.debug(f"Acumulated dirty amount is {data['DIRTY-MEAN']}", 'main')
     data['DIRTY-MEAN'] /= args.repetitions
-    print('\n'.join(f'{key}: {value}' for key, value in data.items()))
+    if args.verbose:
+        print('\n'.join(f'{key}: {value}' for key, value in data.items()))
+    return data
 
 if __name__ == "__main__":
     parse_arguments(main)

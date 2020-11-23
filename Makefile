@@ -24,6 +24,9 @@ load: ## Run the app using the `config` mode and saved configuration file
 info: ## Run the app info mode
 	@python main.py info
 
+sim: ## Run the simulation suite
+	@python test.py
+
 help: ## Show this help
 	@echo Makefile rules:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

@@ -59,6 +59,7 @@ def parse_arguments(main):
     config_parser.set_defaults(command=config)
 
     args = parser.parse_args()
+    args.verbose = True
     if not hasattr(args, 'command'):
         parser.print_help()
     else:
