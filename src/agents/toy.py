@@ -16,3 +16,4 @@ class Toy(Agent):
         except AssertionError: pass
         except EnvError: pass
         return False
+        

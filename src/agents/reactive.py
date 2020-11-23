@@ -59,8 +59,6 @@ class Reactive(Robot):
         data, dis, step = perception
         data = data[Tags.ROLLER]
         if not data:
-            # //TODO: Leave the baby if is not possible
-            # to clean the dirty carrying a baby
             self.logger.debug('Search for a roller failed', 'action')
             return False        
         
@@ -71,8 +69,6 @@ class Reactive(Robot):
     def do_baby(self, perception):
         # Precondition 
         data, dis, step = perception
-        # //TODO: If not possible to clean dirty 
-        # carrying a baby, check also the rollers
         if self.carry or (not data[Tags.BABY]):
             return False
 
@@ -91,8 +87,6 @@ class Reactive(Robot):
     def do_dirty(self, perception):
          # Precondition 
         data, dis, step = perception
-        # //TODO: If not possible to clean dirty 
-        # carrying a baby, check also the rollers
         if not data[Tags.DIRTY]:
             return False
 

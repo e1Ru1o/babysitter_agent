@@ -87,11 +87,3 @@ def build_result_table(data):
 if __name__ == "__main__":
     print(table_body % (test_structure, build_test_table(test)))
     print(table_body % (result_structure, build_result_table(test)))
-
-
-
-    
-    
-    
-
-    

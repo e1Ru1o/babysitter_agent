@@ -80,3 +80,4 @@ class Enviroment:
     def __repr__(self):
         n, m = self.size
         return '\n'.join((''.join(str(self.get(i, j)) for j in range(m)) for i in range(n)))
+        

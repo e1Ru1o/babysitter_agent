@@ -28,8 +28,8 @@ def bfs(start, table, valid_tags, top):
                 visited[nx][ny] = True
                 step[nx][ny] = (xdir, ydir)
                 q.append((nx, ny))
-            except IndexError: pass
-            except AssertionError: pass
+            except IndexError:      pass
+            except AssertionError:  pass
         idx += 1
     return data, distance, step
     
@@ -43,3 +43,4 @@ def get_path(end, step):
         y -= ydir
     l.reverse()
     return l
+    

@@ -64,3 +64,4 @@ def parse_arguments(main):
         parser.print_help()
     else:
         args.command(main, args)
+        

@@ -65,6 +65,3 @@ class Baby(Agent):
         for cell in random.sample(empty, dirty):
             cell.tag(EnvTags.DIRTY)
         self.env.dirty += dirty
-
-
-

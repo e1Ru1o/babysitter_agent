@@ -23,11 +23,8 @@ class Robot(Agent):
 
     def perceive(self):
         if self.saved_pos:
-            pos = self.saved_pos
-            if pos != self.position:
+            if self.saved_pos != self.position:
                 self.top = min(self.top, self.time - self.last_change)
                 self.last_change = self.time
         return bfs(self.position, self.see(), options[self.carry is None], self.top)
-        
-
     

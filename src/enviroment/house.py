@@ -125,6 +125,3 @@ class House(Enviroment):
             self.logger.debug('Bot Fired status reached', 'stop')
             self.status = EnvStatus.FIRED
         return self.status != EnvStatus.RUNNING 
-            
-
-
