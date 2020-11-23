@@ -10,9 +10,4 @@ def generate(maker, sz, current):
     if current is None or len(current) != sz:
         return [maker() for _ in range(sz)]
     return current
-
-def fill_agents(agents, callback):
-    for x in agents:
-        yield x
-    while True:
-        yield callback()
+    

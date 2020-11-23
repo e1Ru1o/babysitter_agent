@@ -1,9 +1,9 @@
 import random
 from ..logging import Logger
 from .base_env import Enviroment
-from ..common import EnvError, EnvTags, DIR
 from ..agents import Baby, Cell, Toy, Roller
-from .utils import EnvStatus, generate, fill_agents, agent_maker as maker
+from ..common import EnvError, EnvTags, DIR, fill_with
+from .utils import EnvStatus, generate, agent_maker as maker
 
 class House(Enviroment):
     def __init__(self, n, m, t, babies, toys, dirty, cicles, robot):
@@ -15,11 +15,13 @@ class House(Enviroment):
         cells       = n * m
         self.dirty  = int((dirty * cells) / 100)
         self.toys   = int((toys * cells)  / 100)
+        elements    = 2 * babies + self.dirty + self.toys + 1
         try:
-            assert 2 * babies + self.dirty + self.toys + 1 <= cells
-            assert babies <= n or babies <= m
-        except AssertionError:
-            raise EnvError('Initial env is not feasible')
+            assert dirty < 60,                  "Dirtiness needs to be lower"
+            assert elements <= cells,           "Not enough space for the elements"
+            assert babies <= n or babies <= m,  "Not enough space for the rollers"
+        except AssertionError as e:
+            raise EnvError(str(e))
         self.variate()
 
     def build_data(self, **kwargs):
@@ -66,7 +68,7 @@ class House(Enviroment):
         bot = generate(maker(self.robot, self, EnvTags.BOT), 1, bot)
         callback = lambda: Cell(env=self, tag=EnvTags.EMPTY)
         active_babies = [b for b in babies if b.active()]
-        all_agents = fill_agents([*toys, *active_babies, *dirty, *bot], callback)
+        all_agents = fill_with([*toys, *active_babies, *dirty, *bot], callback)
         
         # Assign positions
         for pos, agent in zip(positions, all_agents):

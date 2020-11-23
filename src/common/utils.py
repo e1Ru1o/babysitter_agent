@@ -15,3 +15,9 @@ def finder(data, name, error):
         if element.__name__.lower() == name.lower():
             return element
     raise error
+
+def fill_with(data, callback):
+    for x in data:
+        yield x
+    while True:
+        yield callback()
